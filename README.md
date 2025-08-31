@@ -15,6 +15,13 @@ The backend is powered by **Spring Boot**, and this frontend consumes its REST A
 
 ---
 
+## 🛠️ Tech Stack
+- **Frontend:** Angular 17+, TypeScript, Bootstrap, FontAwesome  
+- **Backend:** Spring Boot (REST API)  
+- **Build Tool:** npm  
+- **Version Control:** Git & GitHub  
+
+---
 ## 🖼️ Screenshots
 
 ### 📌 Dashboard
@@ -34,13 +41,7 @@ Form to add new colleges with validation:
 
 ---
 
-## 🛠️ Tech Stack
-- **Frontend:** Angular 17+, TypeScript, Bootstrap, FontAwesome  
-- **Backend:** Spring Boot (REST API)  
-- **Build Tool:** npm  
-- **Version Control:** Git & GitHub  
 
----
 
 
 ## 📦 Folder Structure
