@@ -1,0 +1,414 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark modern-navbar shadow-lg">
+  <div class="container">
+    <a class="navbar-brand fw-bold brand-logo" routerLink="/colleges">
+      <div class="brand-icon">
+        <i class="fas fa-university"></i>
+      </div>
+      <span class="brand-text">College Placement System</span>
+    </a>
+    <button
+      class="navbar-toggler custom-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav ms-auto">
+        <a
+          class="nav-link nav-item-modern me-3"
+          routerLink="/colleges"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }"
+        >
+          <i class="fas fa-list me-2"></i>
+          All Colleges
+        </a>
+        <a
+          class="nav-link btn btn-add-college"
+          routerLink="/colleges/new"
+          routerLinkActive="active"
+        >
+          <i class="fas fa-plus me-2"></i>
+          Add College
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content Area -->
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer -->
+<footer class="modern-footer">
+  <div class="footer-gradient">
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <div class="footer-brand">
+            <div class="footer-icon">
+              <i class="fas fa-university"></i>
+            </div>
+            <div>
+              <h4 class="text-white mb-2">College Placement System</h4>
+              <p class="text-white-50 mb-0">
+                Empowering educational institutions with modern management
+                solutions
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 text-lg-end">
+          <div class="footer-info">
+            <div class="tech-stack mb-3">
+              <span class="tech-badge">
+                <i class="fab fa-angular"></i>
+                Angular
+              </span>
+              <span class="tech-badge">
+                <i class="fas fa-leaf"></i>
+                Spring Boot
+              </span>
+              <span class="tech-badge">
+                <i class="fas fa-database"></i>
+                PostgreSQL
+              </span>
+            </div>
+            <p class="text-white-50 mb-0">
+              <i class="fas fa-calendar-alt me-2"></i>
+              © 2025 College Management System
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center py-3">
+        <div class="col-md-6">
+          <p class="mb-0 text-muted">
+            <i class="fas fa-code me-2"></i>
+            Built with modern web technologies
+          </p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="social-links">
+            <a href="#" class="social-link">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Global Styles -->
+<style>
+  :root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  }
+
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+  }
+
+  .modern-navbar {
+    background: var(--primary-gradient) !important;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .brand-logo:hover {
+    transform: scale(1.05);
+  }
+
+  .brand-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #feca57;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .brand-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .custom-toggler {
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 8px 12px;
+  }
+
+  .nav-item-modern {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 10px 15px !important;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-item-modern::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-item-modern:hover::before,
+  .nav-item-modern.active::before {
+    transform: translateX(0);
+  }
+
+  .nav-item-modern:hover,
+  .nav-item-modern.active {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-add-college {
+    background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%) !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(254, 202, 87, 0.4);
+  }
+
+  .btn-add-college:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(254, 202, 87, 0.6) !important;
+    color: white !important;
+  }
+
+  .main-content {
+    min-height: calc(100vh - 120px);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    position: relative;
+  }
+
+  .main-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="100" fill="rgba(102,126,234,0.05)"/><circle cx="800" cy="400" r="150" fill="rgba(254,202,87,0.05)"/><circle cx="300" cy="700" r="80" fill="rgba(255,107,107,0.05)"/></svg>');
+    background-size: cover;
+    pointer-events: none;
+  }
+
+  .modern-footer {
+    margin-top: auto;
+    position: relative;
+  }
+
+  .footer-gradient {
+    background: var(--primary-gradient);
+    position: relative;
+  }
+
+  .footer-gradient::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,0 1000,1000 0,1000"/></svg>');
+    background-size: cover;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .footer-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #feca57;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .tech-stack {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .tech-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .tech-badge:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .footer-bottom {
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .social-links {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .social-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .brand-text {
+      font-size: 1.1rem;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+    }
+
+    .footer-brand {
+      flex-direction: column;
+      text-align: center;
+      gap: 15px;
+    }
+
+    .tech-stack {
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .social-links {
+      justify-content: center;
+    }
+
+    .nav-item-modern {
+      margin-bottom: 10px;
+    }
+
+    .btn-add-college {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #667eea;
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: #2d3436;
+  }
+
+  /* Focus styles */
+  *:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+  }
+</style>

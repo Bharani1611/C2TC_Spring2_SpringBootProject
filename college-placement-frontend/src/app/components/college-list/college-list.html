@@ -1,0 +1,491 @@
+<!-- Hero Section -->
+<div class="hero-section">
+  <div class="container">
+    <div class="row align-items-center py-5">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold text-white mb-3">
+          <i class="fas fa-university text-warning me-3"></i>
+          College Management System
+        </h1>
+        <p class="lead text-white-50 mb-4">
+          Manage your educational institutions with ease and efficiency
+        </p>
+      </div>
+      <div class="col-lg-4 text-end">
+        <a routerLink="/colleges/new" class="btn btn-gradient btn-lg shadow-lg">
+          <i class="fas fa-plus me-2"></i> Add New College
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <!-- Statistics Cards -->
+  <div class="row mb-5">
+    <div class="col-md-4 mb-3">
+      <div class="stat-card bg-gradient-primary">
+        <div class="stat-icon">
+          <i class="fas fa-building"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ colleges.length }}</h3>
+          <p>Total Colleges</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="stat-card bg-gradient-success">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ getTotalStudents() }}</h3>
+          <p>Total Students</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="stat-card bg-gradient-info">
+        <div class="stat-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ getTotalDepartments() }}</h3>
+          <p>Total Departments</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="custom-spinner">
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+    </div>
+    <p class="mt-3 text-muted">Loading colleges...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger shadow-sm border-0" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    {{ error }}
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && colleges.length === 0" class="text-center py-5">
+    <div class="empty-state">
+      <i class="fas fa-university text-muted mb-4"></i>
+      <h4 class="text-muted">No colleges found</h4>
+      <p class="text-muted mb-4">Start building your educational network!</p>
+      <a routerLink="/colleges/new" class="btn btn-gradient">
+        <i class="fas fa-plus me-2"></i> Add Your First College
+      </a>
+    </div>
+  </div>
+
+  <!-- Colleges Grid -->
+  <div *ngIf="!loading && colleges.length > 0" class="row">
+    <div
+      class="col-md-6 col-lg-4 mb-4"
+      *ngFor="let college of colleges; let i = index"
+    >
+      <div class="college-card" [class]="getCardClass(i)">
+        <div class="card-header-custom">
+          <div class="college-icon">
+            <i class="fas fa-university"></i>
+          </div>
+          <div class="college-rank">#{{ i + 1 }}</div>
+        </div>
+        <div class="card-body">
+          <h5 class="college-name">{{ college.name }}</h5>
+          <div class="college-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt text-danger"></i>
+              <span>{{ college.location }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-user-tie text-primary"></i>
+              <span>{{ college.dean }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-building text-success"></i>
+              <span>{{ college.totalDepartments }} Departments</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-users text-info"></i>
+              <span>{{ college.studentCount }} Students</span>
+            </div>
+          </div>
+          <div class="website-link" *ngIf="college.website">
+            <a
+              [href]="college.website"
+              target="_blank"
+              class="btn btn-link-custom"
+            >
+              <i class="fas fa-external-link-alt"></i> Visit Website
+            </a>
+          </div>
+        </div>
+        <div class="card-footer-custom">
+          <div class="action-buttons">
+            <button
+              [routerLink]="['/colleges', college.id]"
+              class="btn btn-action btn-view"
+              title="View Details"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+            <button
+              [routerLink]="['/colleges/edit', college.id]"
+              class="btn btn-action btn-edit"
+              title="Edit College"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              (click)="deleteCollege(college.id!)"
+              class="btn btn-action btn-delete"
+              title="Delete College"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-section .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+    background-size: cover;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(45deg, #ff6b6b, #feca57);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    color: white;
+  }
+
+  .stat-card {
+    border-radius: 20px;
+    padding: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .stat-card:hover::before {
+    transform: translateX(0);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .bg-gradient-success {
+    background: linear-gradient(135deg, #56cc9d 0%, #6c5ce7 100%);
+  }
+
+  .bg-gradient-info {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  }
+
+  .stat-icon {
+    font-size: 3rem;
+    margin-right: 20px;
+    opacity: 0.8;
+  }
+
+  .stat-content h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .stat-content p {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  .custom-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .spinner-ring {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .spinner-ring:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .spinner-ring:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .empty-state i {
+    font-size: 5rem;
+  }
+
+  .college-card {
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: white;
+    position: relative;
+  }
+
+  .college-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-primary {
+    border-top: 5px solid #667eea;
+  }
+
+  .card-success {
+    border-top: 5px solid #56cc9d;
+  }
+
+  .card-warning {
+    border-top: 5px solid #feca57;
+  }
+
+  .card-danger {
+    border-top: 5px solid #ff6b6b;
+  }
+
+  .card-info {
+    border-top: 5px solid #74b9ff;
+  }
+
+  .card-secondary {
+    border-top: 5px solid #a29bfe;
+  }
+
+  .card-header-custom {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .college-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  .college-rank {
+    background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .college-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .college-details {
+    margin-bottom: 20px;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .detail-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+  }
+
+  .detail-item i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+  }
+
+  .detail-item span {
+    color: #2d3436;
+    font-weight: 500;
+  }
+
+  .website-link {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .btn-link-custom {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-link-custom:hover {
+    color: #764ba2;
+    text-decoration: none;
+  }
+
+  .card-footer-custom {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .btn-action {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+  }
+
+  .btn-view {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+  }
+
+  .btn-edit {
+    background: linear-gradient(135deg, #feca57 0%, #ff9f43 100%);
+    color: white;
+  }
+
+  .btn-delete {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+  }
+
+  .btn-action:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .hero-section .display-4 {
+      font-size: 2rem;
+    }
+
+    .stat-card {
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      margin-right: 15px;
+    }
+
+    .stat-content h3 {
+      font-size: 2rem;
+    }
+  }
+</style>
